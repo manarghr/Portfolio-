@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import { logout } from './actions'
+import { sectionList } from '@/lib/content-schema'
 
 type ShellProps = {
-  active: 'overview' | 'messages'
+  active: 'overview' | 'messages' | 'content'
+  /** which section is open, when active is 'content' */
+  contentKey?: string
   unread?: number
   eyebrow: string
   title: string
@@ -11,12 +14,9 @@ type ShellProps = {
   children: React.ReactNode
 }
 
-/* Content sections get their own editors in the next phase; they are listed
-   here so the shape of the dashboard is visible from the start. */
-const comingSoon = ['Hero', 'About', 'Skills', 'Projects', 'Journey', 'Certifications']
-
 export default function Shell({
   active,
+  contentKey,
   unread = 0,
   eyebrow,
   title,
@@ -52,11 +52,14 @@ export default function Shell({
 
         <nav className="adm-navgroup">
           <span className="adm-navlabel">Site content</span>
-          {comingSoon.map(name => (
-            <span key={name} className="adm-link is-soon">
-              {name}
-              <span className="adm-pill is-quiet">soon</span>
-            </span>
+          {sectionList.map(s => (
+            <Link
+              key={s.key}
+              href={`/admin/content/${s.key}`}
+              className={`adm-link${active === 'content' && contentKey === s.key ? ' is-active' : ''}`}
+            >
+              {s.title}
+            </Link>
           ))}
         </nav>
 

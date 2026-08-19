@@ -1,7 +1,8 @@
 import Doodle from '@/components/Doodle'
 import Typewriter from '@/components/Typewriter'
+import type { HeroContent } from '@/content/defaults'
 
-export default function Hero() {
+export default function Hero({ hero }: { hero: HeroContent }) {
   return (
     <section className="hero" id="hero">
       {/* Decorative doodles, kept out at the corners away from the content */}
@@ -11,18 +12,16 @@ export default function Hero() {
         {/* Text side */}
         <div>
           <p className="hero-greeting" style={{ color: '#3d6984' }}>
-            <Typewriter text="Hey, I'm Manar!" />
+            <Typewriter text={hero.greeting} />
           </p>
 
           <h1>
-            AI Enthusiast
+            {hero.headline}
             <br />
-            &amp; <span style={{ color: '#3d6984' }}>Web Developer</span>
+            &amp; <span style={{ color: '#3d6984' }}>{hero.headlineAccent}</span>
           </h1>
 
-          <p className="hero-lead">
-            Recent Computer Science graduate specialized in Artificial Intelligence and Software Development. Passionate about building modern web solutions and continuously growing my skills.
-          </p>
+          <p className="hero-lead">{hero.lead}</p>
 
           <div className="hero-cta">
             {/* gold star floats in the background, independent of the button */}
@@ -46,12 +45,12 @@ export default function Hero() {
           </svg>
           <div className="hero-photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/profile.jpg" alt="Manar Gherib" />
+            <img src={hero.photo} alt="Manar Gherib" />
             <span className="hero-photo-ring" />
           </div>
           <span className="hero-avail-badge">
             <span className="dot" />
-            Open to Remote Work
+            {hero.badge}
           </span>
         </div>
       </div>

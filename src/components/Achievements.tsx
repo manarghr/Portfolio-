@@ -1,4 +1,5 @@
 import Doodle from '@/components/Doodle'
+import type { CertificationContent } from '@/content/defaults'
 
 const CapIcon = (
   <svg viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -7,7 +8,7 @@ const CapIcon = (
   </svg>
 )
 
-export default function Achievements() {
+export default function Achievements({ cert }: { cert: CertificationContent }) {
   return (
     <section className="section achievements-section" id="achievements">
       {/* decorative doodles */}
@@ -22,13 +23,13 @@ export default function Achievements() {
         <div className="certificate reveal">
           <a
             className="certificate-shot"
-            href="/degree-nit.jpg"
+            href={cert.image}
             target="_blank"
             rel="noreferrer"
             aria-label="Open the degree certificate at full size"
           >
             <img
-              src="/degree-nit.jpg"
+              src={cert.image}
               alt="Licence degree from Numidia Institute of Technology in Autonomous Systems and Ambient and Mobile Software (AI)"
               width={1600}
               height={1112}
@@ -38,13 +39,10 @@ export default function Achievements() {
 
           <div className="certificate-body">
             <div className="achievement-icon">{CapIcon}</div>
-            <h3>Bachelor&rsquo;s Degree in Computer Science</h3>
-            <p className="issuer">Numidia Institute of Technology (NiT)</p>
-            <p className="year">2026</p>
-            <p className="certificate-note">
-              Speciality: Autonomous Systems and Ambient and Mobile Software (AI). Click the
-              certificate to open it full size.
-            </p>
+            <h3>{cert.title}</h3>
+            <p className="issuer">{cert.issuer}</p>
+            <p className="year">{cert.year}</p>
+            <p className="certificate-note">{cert.note}</p>
           </div>
         </div>
       </div>

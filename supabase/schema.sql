@@ -22,3 +22,14 @@ create index if not exists messages_open_idx on public.messages (archived, read_
 -- the service-role key, which bypasses RLS and never reaches the browser. So there
 -- is no public key anywhere that can read your messages.
 alter table public.messages enable row level security;
+
+-- ── Site content ──────────────────────────────────────────────
+-- One JSON blob per editable section. The dashboard writes it, the public
+-- pages read it, and both go through the server, so RLS stays fully closed.
+create table if not exists public.site_content (
+  key        text primary key,
+  data       jsonb not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.site_content enable row level security;

@@ -1,13 +1,7 @@
-const groups = [
-  { label: 'Frontend', skills: ['HTML & CSS', 'JavaScript', 'React', 'Next.js' , 'TypeScript', 'Tailwind'] },
-  { label: 'Backend & Databases', skills: ['Node.js', 'Python', 'FastAPI', 'SQL ', 'REST APIs', 'MongoDB', 'Supabase'] },
-  { label: 'AI', skills: ['Machine Learning', 'Deep Learning', 'Computer Vision', 'Python Libraries'] },
-  { label: 'Design', skills: ['Figma', 'UI / UX'] },
-]
-
 import Doodle from '@/components/Doodle'
+import type { SkillGroup } from '@/content/defaults'
 
-export default function Skills() {
+export default function Skills({ groups }: { groups: SkillGroup[] }) {
   return (
     <section className="section" id="skills">
       {/* decorative doodles */}
@@ -23,9 +17,13 @@ export default function Skills() {
             <article key={g.label} className="skill-card reveal">
               <h3 className="skill-card-title">{g.label}</h3>
               <div className="skill-card-tags">
-                {g.skills.map(s => (
-                  <span key={s}>{s}</span>
-                ))}
+                {g.skills
+                  .split(',')
+                  .map(s => s.trim())
+                  .filter(Boolean)
+                  .map(s => (
+                    <span key={s}>{s}</span>
+                  ))}
               </div>
             </article>
           ))}
