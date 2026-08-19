@@ -1,15 +1,11 @@
 'use client'
-import { useState } from 'react'
+import { useActionState } from 'react'
 import Doodle from '@/components/Doodle'
+import { sendMessage, type ContactState } from '@/app/contact-action'
 
 export default function Contact() {
-  const [sent, setSent] = useState(false)
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    // Wire to your email service (Resend, Formspree, etc.) when ready
-    setSent(true)
-  }
+  const [state, formAction, pending] = useActionState<ContactState, FormData>(sendMessage, null)
+  const sent = state?.ok === true
 
   return (
     <section className="section" id="contact">
@@ -27,38 +23,53 @@ export default function Contact() {
         <div className="contact-wrap reveal">
           <div className="contact-card">
             {sent ? (
-              <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>✅</div>
-                <h3>Message sent!</h3>
-                <p className="sub">I&apos;ll get back to you soon.</p>
+              <div className="contact-sent">
+                <span className="contact-sent-mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 12.5 9.5 18 20 6.5" />
+                  </svg>
+                </span>
+                <p className="contact-sent-title">Message sent</p>
+                <p>Thanks for writing. I&apos;ll get back to you soon.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit}>
+              <form action={formAction}>
                 <h3>Send a message</h3>
+
+                {state?.ok === false && <p className="form-error">{state.error}</p>}
 
                 <div className="form-row">
                   <div className="field">
-                    <label>Name</label>
-                    <input required />
+                    <label htmlFor="c-name">Name</label>
+                    <input id="c-name" name="name" required />
                   </div>
                   <div className="field">
-                    <label>Email</label>
-                    <input type="email" required />
+                    <label htmlFor="c-email">Email</label>
+                    <input id="c-email" name="email" type="email" required />
                   </div>
                 </div>
 
                 <div className="field">
-                  <label>Subject</label>
-                  <input />
+                  <label htmlFor="c-subject">Subject</label>
+                  <input id="c-subject" name="subject" />
                 </div>
 
                 <div className="field">
-                  <label>Message</label>
-                  <textarea required />
+                  <label htmlFor="c-message">Message</label>
+                  <textarea id="c-message" name="message" required />
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-full">
-                  Send message
+                {/* honeypot: hidden from people, catnip for bots */}
+                <input
+                  className="form-trap"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
+
+                <button type="submit" className="btn btn-primary btn-full" disabled={pending}>
+                  {pending ? 'Sending…' : 'Send message'}
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
                     <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
                   </svg>

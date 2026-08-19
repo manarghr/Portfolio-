@@ -139,7 +139,9 @@ body {
 /* ─── Decorative SVGs (rings / stars / scribbles) ──────────── */
 /* Doodles are pinned to the viewport (like drawn on the fixed paper) and
    fade in only while their section is the one in view. */
-.deco { position: fixed; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 0.7s ease; }
+/* absolute, not fixed: the doodles sit on the paper and scroll with it,
+   instead of hanging in the viewport while the page slides underneath */
+.deco { position: absolute; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 0.7s ease; }
 section.deco-active .deco { opacity: 1; }
 .deco-ring { stroke: var(--accent-500); fill: none; opacity: .22; }
 .deco-star { fill: var(--gold); opacity: .8; }
@@ -1408,6 +1410,46 @@ section.deco-active .deco { opacity: 1; }
 .btn-full {
   width: 100%;
   justify-content: center;
+}
+.btn-full[disabled] { opacity: 0.65; cursor: progress; }
+
+.contact-sent { padding: 6px 0 4px; }
+.contact-sent-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sky);
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+}
+.contact-sent-mark svg { width: 21px; height: 21px; }
+.contact-sent-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.contact-sent p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+.form-error {
+  background: #fdeef2;
+  border: 1px solid #f0d3da;
+  color: #b5455f;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  margin-bottom: 18px;
+}
+
+/* honeypot: off-screen for people, still fillable by bots */
+.form-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 
 .contact-socials {
