@@ -3,42 +3,131 @@ import { useState } from 'react'
 import Doodle from '@/components/Doodle'
 
 type Kind = 'edu' | 'work' | 'club'
+type Point = [number, number] // [year, month] with month 1-12
+
 type Ev = {
-  year: number
-  month: number // 1-12
-  span?: number // how many months it covers
+  id: string
+  kind: Kind
   title: string
   place: string
-  kind: Kind
-  note: string // shown in the side box when you hover the event
+  from: Point
+  to: Point // inclusive; a single-month milestone repeats `from`
+  ongoing?: boolean
+  cap?: string // emoji pinned to the end of the bar
+  row?: number // stack within the lane when two entries would overlap
+  note: string
 }
+
+/* the window the timeline draws; everything is positioned inside it */
+const START: Point = [2023, 1]
+const END: Point = [2026, 12]
+const NOW: Point = [2026, 8]
 
 const years = [2023, 2024, 2025, 2026]
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-const events: Ev[] = [
-  { year: 2023, month: 6, title: 'Baccalauréat — Sciences', place: 'High School', kind: 'edu', note: 'finished secondary school and headed into Computer Science.' },
-  { year: 2023, month: 9, title: 'Started B.Sc. CS', place: 'Numidia Institute Of Technology (NiT)', kind: 'edu', note: 'Began a Bachelor’s degree in Computer Science, exploring programming, algorithms, and technology fundamentals.' },
-
-  { year: 2024, month: 2, title: 'Joined the club', place: 'NCS Club', kind: 'club', note: 'Joined as a member and jumped into the club’s events.' },
-  { year: 2024, month: 10, title: 'Organizer', place: 'NCS Club', kind: 'club', note: 'Became an organizer, helping run tech events for the community.' },
-
-  { year: 2025, month: 7, span: 2, title: 'AI Intern', place: 'Djezzy', kind: 'work', note: 'Summer AI internship working on real-world data projects.' },
-  { year: 2025, month: 10, title: 'Web Dev Lead', place: 'NCS Club', kind: 'club', note: 'Stepped up to lead the web team and its projects.' },
-
-  { year: 2026, month: 5, title: 'AI Intern', place: 'Société Générale', kind: 'work', note: 'Current internship — building AI projects at the bank.' },
-  { year: 2026, month: 6, title: 'AI Bachelor’s 🎓', place: 'NIT', kind: 'edu', note: 'Graduated with a specialisation in Artificial Intelligence.' },
+const lanes: { kind: Kind; label: string }[] = [
+  { kind: 'edu', label: 'Education' },
+  { kind: 'work', label: 'Work' },
+  { kind: 'club', label: 'Club' },
 ]
 
+const events: Ev[] = [
+  {
+    id: 'bac',
+    kind: 'edu',
+    title: 'Baccalauréat Sciences',
+    place: 'High School',
+    from: [2023, 6],
+    to: [2023, 6],
+    row: 0,
+    note: 'Finished secondary school and headed straight into Computer Science.',
+  },
+  {
+    id: 'bsc',
+    kind: 'edu',
+    title: 'B.Sc. Computer Science',
+    place: 'Numidia Institute of Technology (NiT)',
+    from: [2023, 9],
+    to: [2026, 7],
+    row: 1,
+    cap: '🎓',
+    note:
+      'Graduated with a bachelor degree in Autonomous Systems and Ambient/Mobile Software (AI). July 2026.',
+  },
+
+  {
+    id: 'djezzy',
+    kind: 'work',
+    title: 'AI Intern',
+    place: 'Djezzy',
+    from: [2025, 7],
+    to: [2025, 8],
+    note:
+      'Built a machine learning pipeline for customer churn prediction, covering data preprocessing, model training and evaluation, and a comparative analysis of classification algorithms.',
+  },
+  {
+    id: 'socgen',
+    kind: 'work',
+    title: 'AI Intern',
+    place: 'Société Générale',
+    from: [2026, 5],
+    to: [2026, 5],
+    note:
+      'Co-developed an offline, privacy-compliant OCR fraud detection system that processes CNIs, passports and payroll slips entirely on CPU, combining OCR confidence analysis, image forensics and cross-document verification to produce an explainable fraud risk score.',
+  },
+
+  {
+    id: 'member',
+    kind: 'club',
+    title: 'Member',
+    place: 'NCS Club',
+    from: [2024, 2],
+    to: [2024, 9],
+    note: 'Joined as a member and jumped into the club’s events.',
+  },
+  {
+    id: 'organizer',
+    kind: 'club',
+    title: 'Organizer',
+    place: 'NCS Club',
+    from: [2024, 10],
+    to: [2025, 9],
+    note: 'Became an organizer, helping run tech events for the community.',
+  },
+  {
+    id: 'weblead',
+    kind: 'club',
+    title: 'Web Dev Lead',
+    place: 'NCS Club',
+    from: [2025, 10],
+    to: END,
+    ongoing: true,
+    note: 'Stepped up to lead the web team and its projects.',
+  },
+]
+
+const idx = ([y, m]: Point) => y * 12 + (m - 1)
+const T0 = idx(START)
+const SPAN = idx(END) - T0 + 1
+
+const left = (p: Point) => ((idx(p) - T0) / SPAN) * 100
+const width = (a: Point, b: Point) => ((idx(b) - idx(a) + 1) / SPAN) * 100
+
+const ROW_H = 58 // vertical step when a lane stacks
+const rowsIn = (kind: Kind) =>
+  Math.max(...events.filter(e => e.kind === kind).map(e => e.row ?? 0)) + 1
+
 function whenLabel(e: Ev) {
-  if (e.span && e.span > 1) {
-    return `${months[e.month - 1]} – ${months[e.month + e.span - 2]} ${e.year}`
-  }
-  return `${months[e.month - 1]} ${e.year}`
+  const from = `${months[e.from[1] - 1]} ${e.from[0]}`
+  if (e.ongoing) return `${from} to Present`
+  if (idx(e.from) === idx(e.to)) return from
+  return `${from} to ${months[e.to[1] - 1]} ${e.to[0]}`
 }
 
 export default function Journey() {
-  const [active, setActive] = useState<Ev | null>(null)
+  const [activeId, setActiveId] = useState('socgen')
+  const active = events.find(e => e.id === activeId) ?? events[0]
 
   return (
     <section className="section" id="journey">
@@ -49,72 +138,125 @@ export default function Journey() {
 
       <div className="section-inner">
         <p className="section-eyebrow">Academic Journey</p>
-        <h1 className="section-heading">Education & Experience</h1>
-        
+        <h1 className="section-heading">Education &amp; Experience</h1>
 
-        <div className="journey-layout reveal">
-          <div className="calendar">
-            <div className="cal-legend">
-              <span className="cal-legend-item edu">Education</span>
-              <span className="cal-legend-item work">Work</span>
-              <span className="cal-legend-item club">Club</span>
+        <div className="journey reveal">
+          {/* noise fields that chew the straight edges off the panel below.
+              each tear is displaced twice: a long meander, then fine fibre fuzz */}
+          <svg className="tl-defs" aria-hidden="true" focusable="false">
+            <defs>
+              <filter id="tear-lip" x="-12%" y="-24%" width="124%" height="148%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.007 0.019" numOctaves={3} seed={17} result="coarse" />
+                <feDisplacementMap in="SourceGraphic" in2="coarse" scale={30} xChannelSelector="R" yChannelSelector="G" result="meander" />
+                <feTurbulence type="fractalNoise" baseFrequency="0.09 0.16" numOctaves={2} seed={5} result="fine" />
+                <feDisplacementMap in="meander" in2="fine" scale={8} xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+
+              <filter id="tear-fringe" x="-12%" y="-24%" width="124%" height="148%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.008 0.022" numOctaves={3} seed={29} result="coarse" />
+                <feDisplacementMap in="SourceGraphic" in2="coarse" scale={26} xChannelSelector="R" yChannelSelector="G" result="meander" />
+                <feTurbulence type="fractalNoise" baseFrequency="0.12 0.2" numOctaves={2} seed={41} result="fine" />
+                <feDisplacementMap in="meander" in2="fine" scale={9} xChannelSelector="R" yChannelSelector="G" result="frayed" />
+                <feGaussianBlur in="frayed" stdDeviation="1.1" />
+              </filter>
+
+              <filter id="tear-hole" x="-12%" y="-24%" width="124%" height="148%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.009 0.024" numOctaves={3} seed={3} result="coarse" />
+                <feDisplacementMap in="SourceGraphic" in2="coarse" scale={23} xChannelSelector="R" yChannelSelector="G" result="meander" />
+                <feTurbulence type="fractalNoise" baseFrequency="0.11 0.18" numOctaves={2} seed={53} result="fine" />
+                <feDisplacementMap in="meander" in2="fine" scale={6} xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+
+              <filter id="tear-shadow" x="-16%" y="-30%" width="132%" height="160%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves={3} seed={17} result="coarse" />
+                <feDisplacementMap in="SourceGraphic" in2="coarse" scale={30} xChannelSelector="R" yChannelSelector="G" result="meander" />
+                <feGaussianBlur in="meander" stdDeviation="7" />
+              </filter>
+            </defs>
+          </svg>
+
+          <div className="tl-frame">
+          <div className="tl-tear" aria-hidden="true" />
+          <div className="tl-top">
+            <div className="tl-legend">
+              <span className="tl-key edu">Education</span>
+              <span className="tl-key work">Work</span>
+              <span className="tl-key club">Club</span>
             </div>
-
-            {/* month header */}
-            <div className="cal-head">
-              <div className="cal-year-spacer" />
-              {months.map(m => (
-                <div key={m} className="cal-month-label">{m}</div>
-              ))}
-            </div>
-
-            {/* one row per year */}
-            {years.map(year => {
-              const cells = []
-              let m = 1
-              while (m <= 12) {
-                const ev = events.find(e => e.year === year && e.month === m)
-                if (ev) {
-                  cells.push(
-                    <div
-                      key={m}
-                      className={`cal-cell has-event ${ev.kind}${active === ev ? ' is-active' : ''}`}
-                      style={{ gridColumn: `span ${ev.span ?? 1}` }}
-                      onMouseEnter={() => setActive(ev)}
-                      onFocus={() => setActive(ev)}
-                      tabIndex={0}
-                    >
-                      <span className="cal-ev-title">{ev.title}</span>
-                      <span className="cal-ev-place">{ev.place}</span>
-                    </div>
-                  )
-                  m += ev.span ?? 1
-                } else {
-                  cells.push(<div key={m} className="cal-cell" />)
-                  m += 1
-                }
-              }
-              return (
-                <div key={year} className="cal-row">
-                  <div className="cal-year">{year}</div>
-                  {cells}
-                </div>
-              )
-            })}
+            <p className="tl-hint">Pick anything on the timeline ✦</p>
           </div>
 
-          {/* description box */}
-          <aside className={`journey-detail ${active ? active.kind : ''}`}>
-            {active ? (
-              <>
-                <span className="jd-when">{whenLabel(active)}</span>
-                <h3>{active.title}</h3>
-                <p className="jd-place">{active.place}</p>
-                <p className="jd-note">{active.note}</p>
-              </>
-            ) : (
-              <p className="jd-hint">Hover an event in the calendar and its story shows up here. ✦</p>
-            )}
+          <div className="tl-scroll">
+            <div className="tl">
+              {/* year ruler */}
+              <div className="tl-row tl-ruler">
+                <div className="tl-lane-name" />
+                <div className="tl-track">
+                  {years.map(y => (
+                    <span key={y} className="tl-year" style={{ left: `${left([y, 1])}%` }}>
+                      {y}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* one lane per category */}
+              {lanes.map(lane => (
+                <div className="tl-row" key={lane.kind}>
+                  <div className={`tl-lane-name ${lane.kind}`}>{lane.label}</div>
+                  <div
+                    className="tl-track"
+                    style={{ height: 96 + (rowsIn(lane.kind) - 1) * ROW_H }}
+                  >
+                    {years.map(y => (
+                      <span key={y} className="tl-gridline" style={{ left: `${left([y, 1])}%` }} />
+                    ))}
+                    <span className="tl-now" style={{ left: `${left(NOW)}%` }} />
+
+                    {events
+                      .filter(e => e.kind === lane.kind)
+                      .map(e => (
+                        <button
+                          key={e.id}
+                          type="button"
+                          className={[
+                            'tl-item',
+                            e.kind,
+                            e.ongoing ? 'is-ongoing' : '',
+                            activeId === e.id ? 'is-active' : '',
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                          style={{
+                            left: `${left(e.from)}%`,
+                            width: `${width(e.from, e.to)}%`,
+                            top: 24 + (e.row ?? 0) * ROW_H,
+                          }}
+                          onMouseEnter={() => setActiveId(e.id)}
+                          onFocus={() => setActiveId(e.id)}
+                          onClick={() => setActiveId(e.id)}
+                          aria-label={`${e.title}, ${e.place}, ${whenLabel(e)}`}
+                        >
+                          <span className="tl-label">
+                            <b>{e.title}</b>
+                            <i>{e.place}</i>
+                          </span>
+                          {e.cap && <span className="tl-cap">{e.cap}</span>}
+                        </button>
+                      ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div>
+
+          {/* details for whatever is selected */}
+          <aside className={`journey-detail ${active.kind}`} aria-live="polite">
+            <span className="jd-when">{whenLabel(active)}</span>
+            <h3>{active.title}</h3>
+            <p className="jd-place">{active.place}</p>
+            <p className="jd-note">{active.note}</p>
           </aside>
         </div>
       </div>

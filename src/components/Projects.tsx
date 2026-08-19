@@ -13,7 +13,7 @@ const projects: Project[] = [
   {
     name: 'Elevate 2.0 Website',
     color: 'y',
-    desc: 'Full event website for a design hackathon — registration, schedule, sponsors & FAQ.',
+    desc: 'Full event website for a design hackathon with registration, schedule, sponsors & FAQ.',
     live: 'https://elevate2-wuj3.vercel.app',
     code: '#',
     image: '/elevate2.png',
@@ -21,7 +21,7 @@ const projects: Project[] = [
   {
     name: 'Elevate 2.0 UI/UX ' ,
     color: 'b',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: 'https://www.figma.com/design/KmAczmD5LTxQy76DW9on2a/elevate-ui-ux?node-id=0-1&p=f&t=KITL5q1EpFL0KOgk-0',
     code: '#',
     image: '/elevate2.png',
@@ -29,7 +29,7 @@ const projects: Project[] = [
   {
     name: 'Elevate 1.0 Website',
     color: 'p',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: 'https://elevate2025.ncs-club.com/',
     code: '#',
     image: '/elevate1.png',
@@ -37,7 +37,7 @@ const projects: Project[] = [
   {
     name: 'NcsHack 2.0 UI/UX',
     color: 'y',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: '#',
     code: '#',
     image: '/project-4.png',
@@ -45,7 +45,7 @@ const projects: Project[] = [
   {
     name: 'NcsHack 2.0 Website',
     color: 'b',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: '#',
     code: '#',
     image: '/project-5.png',
@@ -53,7 +53,7 @@ const projects: Project[] = [
   {
     name: 'Arena 2.0 Website',
     color: 'p',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: '#',
     code: '#',
     image: '/project-6.png',
@@ -62,7 +62,7 @@ const projects: Project[] = [
   {
     name: 'Arena 2.0 Website',
     color: 'p',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: '#',
     code: '#',
     image: '/project-6.png',
@@ -71,7 +71,7 @@ const projects: Project[] = [
   {
     name: 'TrainSight Platform',
     color: 'p',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: '#',
     code: '#',
     image: '/project-6.png',
@@ -80,7 +80,7 @@ const projects: Project[] = [
   {
     name: 'E-TAALIM Platform',
     color: 'p',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: '#',
     code: '#',
     image: '/project-6.png',
@@ -89,7 +89,7 @@ const projects: Project[] = [
   {
     name: 'Arena 2.0 Website',
     color: 'p',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: '#',
     code: '#',
     image: '/project-6.png',
@@ -98,7 +98,7 @@ const projects: Project[] = [
   {
     name: 'Nexus Website',
     color: 'p',
-    desc: 'Short note about the project — what it does and the tech behind it.',
+    desc: 'Short note about the project and the tech behind it.',
     live: '#',
     code: '#',
     image: '/project-6.png',

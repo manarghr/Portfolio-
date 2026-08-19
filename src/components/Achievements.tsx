@@ -31,8 +31,8 @@ const StarIcon = (
 type Item = { icon: ReactNode; title: string; issuer: string; year: string }
 
 const items: Item[] = [
-  { icon: TrophyIcon, title: 'Elevate Hackathon — Organiser', issuer: 'Numidia Computer Society', year: '2026' },
-  { icon: CapIcon,    title: "Bachelor's Degree — Computer Science", issuer: 'University Name', year: '2025' },
+  { icon: TrophyIcon, title: 'Elevate Hackathon Organiser', issuer: 'Numidia Computer Society', year: '2026' },
+  { icon: CapIcon,    title: "Bachelor's Degree in Computer Science", issuer: 'University Name', year: '2025' },
   { icon: MedalIcon,  title: 'Certification Name', issuer: 'Issuing Body', year: '2024' },
   { icon: StarIcon,   title: 'Achievement / Award', issuer: 'Organisation', year: '2023' },
   // Add your real achievements here

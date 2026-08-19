@@ -179,7 +179,7 @@ section.deco-active .deco { opacity: 1; }
 }
 .logo-dot { color: var(--accent-500); }
 
-/* Initials badge — dark navy chip, cream text, gold border */
+/* Initials badge: dark navy chip, cream text, gold border */
 .navbar-mark {
   width: 34px;
   height: 34px;
@@ -391,7 +391,7 @@ section.deco-active .deco { opacity: 1; }
   position: relative;
 }
 
-/* gold star tucked behind the button row — sits in the background, not attached to the button */
+/* gold star tucked behind the button row, sits in the background, not attached to the button */
 .cta-star {
   position: absolute;
   top: 50%;
@@ -422,7 +422,7 @@ section.deco-active .deco { opacity: 1; }
 
 .btn:hover { transform: translateY(-2px); }
 
-/* Primary — electric blue fill, white text */
+/* Primary: electric blue fill, white text */
 .btn-primary {
   background: var(--accent-500);
   color: #fff;
@@ -430,7 +430,7 @@ section.deco-active .deco { opacity: 1; }
 }
 .btn-primary:hover { background: var(--accent-600); box-shadow: 0 12px 32px rgba(79, 142, 247, 0.42); }
 
-/* Secondary — navy outline */
+/* Secondary: navy outline */
 .btn-secondary {
   background: #fff;
   color: var(--text);
@@ -438,7 +438,7 @@ section.deco-active .deco { opacity: 1; }
 }
 .btn-secondary:hover { border-color: var(--accent-500); color: var(--accent-600); }
 
-/* Sticker / pop buttons — light blue fill, dark outline, hard offset shadow */
+/* Sticker / pop buttons: light blue fill, dark outline, hard offset shadow */
 .btn-pop {
   background: #cfe3fb;
   color: #0D1B2A;
@@ -948,122 +948,257 @@ section.deco-active .deco { opacity: 1; }
   line-height: 1.6;
 }
 
-/* ─── Journey calendar ─────────────────────────────────────── */
-.journey-layout {
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 28px;
-  margin-top: 44px;
-  align-items: start;
+/* ─── Journey timeline ─────────────────────────────────────── */
+.journey { margin-top: 52px; }
+
+/* the panel reads as a hole ripped through the paper, not a card laid on top.
+   four backing layers carry the tear so the content above stays perfectly crisp:
+     .tl-tear          soft shadow the lifted sheet casts down into the hole
+     .tl-tear::before  the warm fibre lip of the sheet above
+     .tl-tear::after   pale frayed fringe where the fibres pulled apart
+     .tl-frame::before the white showing through, with paper grain
+   every layer runs its own noise seed, so no two edges ever line up */
+.tl-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
-.calendar { min-width: 0; }
-
-.cal-head,
-.cal-row {
-  display: grid;
-  grid-template-columns: 42px repeat(12, 1fr);
-  gap: 5px;
-  margin-bottom: 5px;
+.tl-frame {
+  position: relative;
+  isolation: isolate; /* keeps the negative-z backing layers inside the frame */
+  background: transparent;
+  padding: 36px 38px 28px;
 }
 
-.cal-month-label {
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--text-muted);
-  text-align: center;
-  align-self: end;
+/* the shadow the torn sheet drops into the opening */
+.tl-tear {
+  position: absolute;
+  inset: -12px;
+  z-index: -2;
+  border-radius: 20px;
+  background: rgba(13, 27, 42, 0.17);
+  filter: url(#tear-shadow);
+  pointer-events: none;
 }
 
-.cal-year {
+/* the sheet above, torn open */
+.tl-tear::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 16px;
+  background:
+    linear-gradient(160deg, #f4eee1 0%, #ebe3d2 55%, #e4dbc7 100%);
+  filter: url(#tear-lip);
+}
+
+/* the pale fuzz of loose fibre right along the rip */
+.tl-tear::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: 14px;
+  background: #fbf7ec;
+  filter: url(#tear-fringe);
+}
+
+/* the white showing through the tear */
+.tl-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 12px;
+  background-color: var(--surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  box-shadow:
+    inset 0 0 0 1px rgba(13, 27, 42, 0.06),
+    inset 0 6px 18px rgba(13, 27, 42, 0.13),
+    inset 0 2px 4px rgba(13, 27, 42, 0.16),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.9);
+  filter: url(#tear-hole);
+}
+
+.tl-top {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: #3d6984;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 28px;
 }
-
-.cal-cell {
-  min-height: 66px;
-  border: 1px dashed var(--border);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.35);
-}
-
-.cal-cell.has-event {
-  border-style: solid;
-  border-width: 1.5px;
-  background: #fff;
-  box-shadow: var(--shadow);
-  padding: 7px 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.cal-cell.has-event:hover,
-.cal-cell.has-event.is-active {
-  transform: translateY(-2px);
-  box-shadow: var(--glow);
-}
-
-.cal-ev-title {
-  font-weight: 700;
-  font-size: 0.72rem;
-  line-height: 1.12;
-  color: var(--text);
-}
-.cal-ev-place { font-size: 0.62rem; font-weight: 600; }
-
-.cal-cell.edu { border-color: var(--gold); background: #fdf8ec; }
-.cal-cell.edu .cal-ev-place { color: #a9843a; }
-.cal-cell.work { border-color: var(--accent-500); background: #eef5ff; }
-.cal-cell.work .cal-ev-place { color: var(--accent-600); }
-.cal-cell.club { border-color: #e06aa0; background: #fdeef5; }
-.cal-cell.club .cal-ev-place { color: #c14f86; }
-
-/* legend */
-.cal-legend {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 16px;
-}
-.cal-legend-item {
+.tl-legend { display: flex; gap: 26px; }
+.tl-key {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font-size: 0.76rem;
+  gap: 9px;
+  font-size: 0.86rem;
   font-weight: 600;
   color: var(--text-muted);
 }
-.cal-legend-item::before {
+.tl-key::before {
   content: "";
-  width: 11px;
-  height: 11px;
-  border-radius: 3px;
-  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
 }
-.cal-legend-item.edu::before { background: var(--gold); }
-.cal-legend-item.work::before { background: var(--accent-500); }
-.cal-legend-item.club::before { background: #e06aa0; }
+.tl-key.edu::before { background: var(--gold); }
+.tl-key.work::before { background: var(--accent-500); }
+.tl-key.club::before { background: #e06aa0; }
 
-/* description box beside the calendar */
+.tl-hint { font-size: 0.88rem; color: var(--text-muted); }
+
+/* the timeline is drawn at a fixed generous width and scrolls sideways */
+.tl-scroll {
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #c3d0da transparent;
+}
+.tl-scroll::-webkit-scrollbar { height: 10px; }
+.tl-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 999px;
+}
+.tl-scroll::-webkit-scrollbar-thumb {
+  background: #c3d0da;
+  border-radius: 999px;
+}
+.tl-scroll::-webkit-scrollbar-thumb:hover { background: #a6b8c6; }
+
+.tl { min-width: 1560px; }
+
+.tl-row {
+  display: grid;
+  grid-template-columns: 124px 1fr;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 10px;
+}
+.tl-lane-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-align: right;
+}
+.tl-track { position: relative; height: 96px; }
+
+/* year ruler */
+.tl-ruler .tl-track { height: 38px; }
+.tl-year {
+  position: absolute;
+  bottom: 0;
+  padding-left: 11px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3d6984;
+}
+
+/* year gridlines + a dashed marker on today */
+.tl-gridline {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--surface-2);
+}
+.tl-now {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(to bottom, #e06aa0 0 5px, transparent 5px 10px);
+  opacity: 0.5;
+}
+
+/* the bars */
+.tl-item {
+  position: absolute;
+  top: 24px;
+  height: 48px;
+  min-width: -moz-fit-content;
+  min-width: fit-content; /* a bar never shrinks below its own label */
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  border: 1.5px solid;
+  border-radius: 999px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: var(--shadow);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+}
+.tl-item:hover,
+.tl-item.is-active {
+  transform: translateY(-3px);
+  box-shadow: var(--glow);
+  z-index: 3;
+}
+.tl-item:not(.is-active) { filter: saturate(0.82); }
+.tl-item:focus-visible { outline: 2px solid var(--accent-500); outline-offset: 3px; }
+
+.tl-item.edu { border-color: var(--gold); background: #fdf8ec; }
+.tl-item.work { border-color: var(--accent-500); background: #eef5ff; }
+.tl-item.club { border-color: #e06aa0; background: #fdeef5; }
+
+/* labels: inside the bar when it is wide enough, on the line above when it is not */
+.tl-label {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  min-width: 0;
+}
+.tl-label b {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+.tl-label i {
+  font-style: normal;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tl-item.edu .tl-label i { color: #a9843a; }
+.tl-item.work .tl-label i { color: var(--accent-600); }
+.tl-item.club .tl-label i { color: #c14f86; }
+
+/* still going: the bar dissolves toward the right instead of ending */
+.tl-item.is-ongoing {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 70px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 70px), transparent);
+}
+
+/* the 🎓 sitting on the end of the degree bar */
+.tl-cap {
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+/* details for whatever is selected */
 .journey-detail {
-  position: sticky;
-  top: 100px;
+  margin-top: 22px;
   background: #fff;
   border: 1.5px solid var(--border);
-  border-left-width: 5px;
+  border-left-width: 6px;
   border-radius: var(--radius-lg);
-  padding: 26px;
+  padding: 30px 34px;
   box-shadow: var(--shadow);
-  min-height: 190px;
-  overflow: hidden;                 /* keep everything inside the card */
-  overflow-wrap: anywhere;          /* break very long words */
-  word-break: break-word;
+  overflow-wrap: anywhere;
   transition: border-color 0.18s ease;
 }
 .journey-detail.edu { border-left-color: var(--gold); }
@@ -1071,24 +1206,24 @@ section.deco-active .deco { opacity: 1; }
 .journey-detail.club { border-left-color: #e06aa0; }
 
 .jd-when {
-  font-size: 0.7rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent-600);
 }
-.journey-detail h3 { font-size: 1.1rem; margin: 8px 0 2px; color: var(--text); }
-.jd-place { color: var(--accent-600); font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; }
-.jd-note { color: var(--text-muted); font-size: 0.9rem; line-height: 1.55; overflow-wrap: anywhere; word-break: break-word; }
-.jd-hint { color: var(--text-muted); font-size: 0.92rem; line-height: 1.5; }
+.journey-detail h3 { font-size: 1.35rem; margin: 12px 0 4px; color: var(--text); }
+.jd-place { color: var(--accent-600); font-weight: 600; font-size: 1rem; margin-bottom: 14px; }
+.jd-note { color: var(--text-muted); font-size: 1rem; line-height: 1.65; }
 
 @media (max-width: 760px) {
-  .journey-layout { grid-template-columns: 1fr; }
-  .journey-detail { position: static; }
-  .calendar { overflow-x: auto; }
-  .cal-head, .cal-row { min-width: 600px; }
+  .tl-row { grid-template-columns: 74px 1fr; gap: 14px; }
+  .tl-lane-name { font-size: 0.66rem; letter-spacing: 0.05em; }
+  .tl-frame { padding: 26px 22px 20px; }
+  .journey-detail { padding: 22px; }
+  .journey-detail h3 { font-size: 1.15rem; }
+  .jd-note { font-size: 0.94rem; }
 }
-
 /* ─── Achievements ─────────────────────────────────────────── */
 .achievements-section { background: transparent; }
 
@@ -1350,7 +1485,7 @@ section.deco-active .deco { opacity: 1; }
 }
 .footer-socials .social-btn { width: 40px; height: 40px; }
 
-/* About — plain writable container with a small post-it on the top-left */
+/* About: plain writable container with a small post-it on the top-left */
 .about-block {
   position: relative;
   margin-top: 52px;

@@ -21,7 +21,7 @@ export default function Contact() {
         <p className="section-eyebrow">Contact</p>
         <h2 className="section-heading">Let&apos;s build something together</h2>
         <p className="section-sub contact-sub-icy" style={{ margin: '0 auto 0' }}>
-          Have a project or role in mind? Drop me a line — I usually respond within 24 h.
+          Have a project or role in mind? Drop me a line. I usually respond within 24 h.
         </p>
 
         <div className="contact-wrap">

@@ -24,7 +24,7 @@ const caveat = Caveat({
 })
 
 export const metadata: Metadata = {
-  title: 'Manar Gherib — CS Graduate & Developer',
+  title: 'Manar Gherib | CS Graduate & Developer',
   description: 'Portfolio of Manar Gherib, Computer Science graduate and developer.',
 }
 
