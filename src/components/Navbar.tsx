@@ -6,7 +6,7 @@ const links = [
   { href: '#skills', label: 'Skills' },
   { href: '#projects', label: 'Projects' },
   { href: '#journey', label: 'Journey' },
-  { href: '#achievements', label: 'Awards' },
+  { href: '#achievements', label: 'Certifications' },
 ]
 
 export default function Navbar() {

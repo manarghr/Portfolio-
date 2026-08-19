@@ -1,19 +1,4 @@
-import type { ReactNode } from 'react'
 import Doodle from '@/components/Doodle'
-
-const TrophyIcon = (
-  <svg viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M6 9a6 6 0 0 0 12 0V3H6z" />
-    <path d="M6 5H3v2a3 3 0 0 0 3 3M18 5h3v2a3 3 0 0 1-3 3M9 21h6M12 15v6" />
-  </svg>
-)
-
-const MedalIcon = (
-  <svg viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="8" r="6" />
-    <path d="M8.5 13 7 22l5-3 5 3-1.5-9" />
-  </svg>
-)
 
 const CapIcon = (
   <svg viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -21,22 +6,6 @@ const CapIcon = (
     <path d="M6 10.5V16c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5.5" />
   </svg>
 )
-
-const StarIcon = (
-  <svg viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 2 15 9l7 .5-5.3 4.6L18.5 21 12 17l-6.5 4 1.8-6.9L2 9.5 9 9z" />
-  </svg>
-)
-
-type Item = { icon: ReactNode; title: string; issuer: string; year: string }
-
-const items: Item[] = [
-  { icon: TrophyIcon, title: 'Elevate Hackathon Organiser', issuer: 'Numidia Computer Society', year: '2026' },
-  { icon: CapIcon,    title: "Bachelor's Degree in Computer Science", issuer: 'University Name', year: '2025' },
-  { icon: MedalIcon,  title: 'Certification Name', issuer: 'Issuing Body', year: '2024' },
-  { icon: StarIcon,   title: 'Achievement / Award', issuer: 'Organisation', year: '2023' },
-  // Add your real achievements here
-]
 
 export default function Achievements() {
   return (
@@ -47,21 +16,37 @@ export default function Achievements() {
       <Doodle variant="star" float style={{ bottom: '16%', left: '11%', width: 30 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">Achievements</p>
-        <h2 className="section-heading">Awards &amp; Certifications</h2>
-        <p className="section-sub">Certifications, awards, and moments worth marking.</p>
+        <p className="section-eyebrow">Credentials</p>
+        <h2 className="section-heading">Certifications</h2>
+        <p className="section-sub">What I have earned so far.</p>
 
-        <div className="achievements-grid">
-          {items.map((item, i) => (
-            <div key={i} className="achievement-card reveal">
-              <div className="achievement-icon">{item.icon}</div>
-              <div className="achievement-content">
-                <h3>{item.title}</h3>
-                <p className="issuer">{item.issuer}</p>
-                <p className="year">{item.year}</p>
-              </div>
-            </div>
-          ))}
+        <div className="certificate reveal">
+          <a
+            className="certificate-shot"
+            href="/degree-nit.jpg"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open the degree certificate at full size"
+          >
+            <img
+              src="/degree-nit.jpg"
+              alt="Licence degree from Numidia Institute of Technology in Autonomous Systems and Ambient and Mobile Software (AI)"
+              width={1600}
+              height={1112}
+              loading="lazy"
+            />
+          </a>
+
+          <div className="certificate-body">
+            <div className="achievement-icon">{CapIcon}</div>
+            <h3>Bachelor&rsquo;s Degree in Computer Science</h3>
+            <p className="issuer">Numidia Institute of Technology (NiT)</p>
+            <p className="year">2026</p>
+            <p className="certificate-note">
+              Speciality: Autonomous Systems and Ambient and Mobile Software (AI). Click the
+              certificate to open it full size.
+            </p>
+          </div>
         </div>
       </div>
     </section>

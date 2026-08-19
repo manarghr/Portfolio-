@@ -41,7 +41,7 @@ const events: Ev[] = [
     from: [2023, 6],
     to: [2023, 6],
     row: 0,
-    note: 'Finished secondary school and headed straight into Computer Science.',
+    note: 'Finished high school and went straight into Computer Science.',
   },
   {
     id: 'bsc',
@@ -64,7 +64,7 @@ const events: Ev[] = [
     from: [2025, 7],
     to: [2025, 8],
     note:
-      'Built a machine learning pipeline for customer churn prediction, covering data preprocessing, model training and evaluation, and a comparative analysis of classification algorithms.',
+      'Built a machine learning pipeline that predicts which customers are about to leave, from cleaning the raw data to training, testing and comparing the models.',
   },
   {
     id: 'socgen',
@@ -74,7 +74,7 @@ const events: Ev[] = [
     from: [2026, 5],
     to: [2026, 5],
     note:
-      'Co-developed an offline, privacy-compliant OCR fraud detection system that processes CNIs, passports and payroll slips entirely on CPU, combining OCR confidence analysis, image forensics and cross-document verification to produce an explainable fraud risk score.',
+      'Helped build a tool that spots forged ID cards, passports and payroll slips. It reads each document, checks them against each other and gives a fraud score you can actually explain, all running offline so no data ever leaves the bank.',
   },
 
   {
@@ -84,7 +84,7 @@ const events: Ev[] = [
     place: 'NCS Club',
     from: [2024, 2],
     to: [2024, 9],
-    note: 'Joined as a member and jumped into the club’s events.',
+    note: 'Took part in several of the club tech events and hackathons.',
   },
   {
     id: 'organizer',
@@ -93,7 +93,8 @@ const events: Ev[] = [
     place: 'NCS Club',
     from: [2024, 10],
     to: [2025, 9],
-    note: 'Became an organizer, helping run tech events for the community.',
+    note:
+      'Worked in the dev and media departments, building event websites and organizing tech events together with the rest of the team.',
   },
   {
     id: 'weblead',
@@ -101,9 +102,9 @@ const events: Ev[] = [
     title: 'Web Dev Lead',
     place: 'NCS Club',
     from: [2025, 10],
-    to: END,
-    ongoing: true,
-    note: 'Stepped up to lead the web team and its projects.',
+    to: [2026, 8],
+    note:
+      'Led the web team that built and shipped the club event websites, while still organizing tech events with the rest of the team.',
   },
 ]
 
