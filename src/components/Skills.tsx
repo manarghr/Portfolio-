@@ -16,7 +16,7 @@ export default function Skills() {
 
       <div className="section-inner">
         <p className="section-eyebrow">Skills</p>
-        <h1 className="section-heading">Tools and technologies I use most often</h1>
+        <h2 className="section-heading">Tools and technologies I use most often</h2>
 
         <div className="skill-cards">
           {groups.map(g => (

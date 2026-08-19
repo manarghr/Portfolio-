@@ -9,7 +9,7 @@ export default function About() {
 
       <div className="section-inner">
         <p className="section-eyebrow">About me</p>
-        <h1 className="section-heading">The person behind the code</h1>
+        <h2 className="section-heading">The person behind the code</h2>
 
         {/* plain container to write in, with a small post-it on the top-left */}
         <div className="about-block">

@@ -16,9 +16,8 @@ export default function Achievements() {
       <Doodle variant="star" float style={{ bottom: '16%', left: '11%', width: 30 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">Credentials</p>
-        <h2 className="section-heading">Certifications</h2>
-        <p className="section-sub">What I have earned so far.</p>
+        <p className="section-eyebrow">Certifications</p>
+        <h2 className="section-heading">Degrees &amp; certifications I&apos;ve earned</h2>
 
         <div className="certificate reveal">
           <a

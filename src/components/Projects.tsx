@@ -115,7 +115,7 @@ export default function Projects() {
 
       <div className="section-inner">
         <p className="section-eyebrow">Projects</p>
-        <h1 className="section-heading"> Things I&apos;ve built &amp; contributed to</h1>
+        <h2 className="section-heading">Things I&apos;ve built &amp; contributed to</h2>
 
         <div className="showcase-grid">
           {projects.map((p, i) => (

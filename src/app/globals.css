@@ -11,6 +11,8 @@
   --accent-500: #4F8EF7;   /* electric blue (primary) */
   --accent-600: #3a6fc4;   /* deeper blue (readable text/hover) */
   --gold:       #C9A84C;   /* muted gold (stars, decorative) */
+  --eyebrow:    #3d6984;   /* muted steel blue (section eyebrows) */
+  --sky:        #cfe3fb;   /* soft blue fill (sticker + contact) */
 
   /* Surfaces */
   --bg:         #fdfcf4;   /* near-white with a tiny touch of beige */
@@ -98,18 +100,18 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.74rem;
+  font-size: 1.35rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--accent-600);
-  margin-bottom: 12px;
+  letter-spacing: 0.16em;
+  color: var(--eyebrow);
+  margin-bottom: 14px;
 }
 .section-eyebrow::before {
   content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--accent-500);
+  width: 36px;
+  height: 2px;
+  background: var(--eyebrow);
 }
 
 .section-heading {
@@ -422,13 +424,17 @@ section.deco-active .deco { opacity: 1; }
 
 .btn:hover { transform: translateY(-2px); }
 
-/* Primary: electric blue fill, white text */
+/* Primary: soft blue fill, no outline, no drop shadow */
 .btn-primary {
-  background: var(--accent-500);
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(79, 142, 247, 0.32);
+  background: var(--sky);
+  color: #0D1B2A;
+  border: none;
+  box-shadow: none;
 }
-.btn-primary:hover { background: var(--accent-600); box-shadow: 0 12px 32px rgba(79, 142, 247, 0.42); }
+.btn-primary:hover {
+  background: #bcd8fb;
+  box-shadow: none;
+}
 
 /* Secondary: navy outline */
 .btn-secondary {
@@ -589,23 +595,6 @@ section.deco-active .deco { opacity: 1; }
 
 /* ─── About ────────────────────────────────────────────────── */
 .about-section { background: transparent; padding-top: 50px; }
-
-/* bigger, developer-blue eyebrow for the About section */
-.about-section .section-eyebrow,
-#skills .section-eyebrow,
-#projects .section-eyebrow,
-#journey .section-eyebrow {
-  color: #3d6984;
-  font-size: 1.35rem;
-}
-.about-section .section-eyebrow::before,
-#skills .section-eyebrow::before,
-#projects .section-eyebrow::before,
-#journey .section-eyebrow::before {
-  width: 36px;
-  height: 2px;
-  background: #3d6984;
-}
 
 .about-grid {
   display: grid;
@@ -1311,33 +1300,65 @@ section.deco-active .deco { opacity: 1; }
 }
 
 /* ─── Contact ──────────────────────────────────────────────── */
-.contact-sub-icy { color: var(--accent-600); }
-
+/* form on the left, the direct ways to reach me on the right */
 .contact-wrap {
-  max-width: 540px;
-  margin: 44px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  margin-top: 44px;
 }
 
 .contact-card {
   background: var(--surface);
   border: 1px solid var(--border);
+  border-left: 5px solid var(--sky);
   border-radius: var(--radius-lg);
-  padding: 36px;
-  box-shadow: var(--shadow-lg);
+  padding: 32px 32px 30px;
+  box-shadow: var(--shadow);
   text-align: left;
 }
 
-.contact-card h3 {
-  font-size: 1.4rem;
+.contact-card h3,
+.contact-aside h3 {
+  font-size: 0.78rem;
   font-weight: 700;
-  margin-bottom: 6px;
-  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 22px;
 }
 
-.contact-card .sub {
-  color: var(--text-muted);
+/* the column beside the form */
+.contact-aside {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 32px 32px 30px;
+  box-shadow: var(--shadow);
+}
+
+.contact-mail {
+  display: inline-block;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent-600);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(79, 142, 247, 0.35);
+  padding-bottom: 2px;
+  transition: color 0.16s, border-color 0.16s;
+}
+.contact-mail:hover {
+  color: var(--accent-500);
+  border-bottom-color: var(--accent-500);
+}
+
+.contact-aside-note {
+  margin-top: 14px;
   font-size: 0.92rem;
-  margin-bottom: 28px;
+  line-height: 1.6;
+  color: var(--text-muted);
 }
 
 .form-row {
@@ -1391,9 +1412,9 @@ section.deco-active .deco { opacity: 1; }
 
 .contact-socials {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 14px;
-  margin-top: 28px;
+  margin-top: 26px;
 }
 
 .social-btn {
@@ -1420,9 +1441,14 @@ section.deco-active .deco { opacity: 1; }
 
 .social-btn svg { width: 18px; height: 18px; }
 
+@media (max-width: 860px) {
+  .contact-wrap { grid-template-columns: 1fr; gap: 22px; }
+}
+
 @media (max-width: 480px) {
   .form-row { grid-template-columns: 1fr; }
-  .contact-card { padding: 24px; }
+  .contact-card,
+  .contact-aside { padding: 24px; }
 }
 
 /* ─── Footer ───────────────────────────────────────────────── */

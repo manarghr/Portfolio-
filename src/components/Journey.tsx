@@ -139,7 +139,7 @@ export default function Journey() {
 
       <div className="section-inner">
         <p className="section-eyebrow">Academic Journey</p>
-        <h1 className="section-heading">Education &amp; Experience</h1>
+        <h2 className="section-heading">Education &amp; Experience</h2>
 
         <div className="journey reveal">
           {/* noise fields that chew the straight edges off the panel below.
