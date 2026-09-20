@@ -36,6 +36,14 @@ export default function Hero({ hero }: { hero: HeroContent }) {
             </a>
             <a href="#contact" className="btn btn-pop">Get in touch</a>
           </div>
+
+          {/* quieter third action: the CV lives in public/cv.pdf */}
+          <a className="hero-cv" href="/cv.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+              <path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16" />
+            </svg>
+            Download my CV
+          </a>
         </div>
 
         {/* Photo side */}

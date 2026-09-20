@@ -159,6 +159,30 @@ export const sections: Record<SectionKey, SectionSchema> = {
     blank: { name: '', desc: '', color: 'y', image: '', live: '', code: '' },
   },
 
+  services: {
+    key: 'services',
+    title: 'What I do',
+    blurb: 'The three service cards under “Need it built? Here’s how I help”.',
+    kind: 'list',
+    itemName: 'service',
+    titleField: 'title',
+    fields: [
+      {
+        name: 'icon',
+        label: 'Icon',
+        type: 'select',
+        options: [
+          { value: 'browser', label: 'Browser window (sketch)' },
+          { value: 'dashboard', label: 'Dashboard panel (sketch)' },
+          { value: 'toolbox', label: 'Idea bulb & gear (sketch)' },
+        ],
+      },
+      { name: 'title', label: 'Title', type: 'text', placeholder: 'Event & landing pages' },
+      { name: 'blurb', label: 'Description', type: 'textarea', wide: true },
+    ],
+    blank: { icon: 'browser', title: '', blurb: '' },
+  },
+
   journey: {
     key: 'journey',
     title: 'Journey',

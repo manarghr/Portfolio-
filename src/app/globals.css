@@ -1639,27 +1639,27 @@ section.deco-active .deco { opacity: 1; }
 .skill-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 48px;
+  gap: 28px;
+  margin-top: 56px;
 }
 
+/* same sticker treatment as the service and project cards */
 .skill-card {
-  background: #ffffff;
-  border: 3px solid #0D1B2A;
+  background: #fffdf6;
+  border: 2.5px solid var(--navy);
   border-radius: var(--radius-lg);
-  padding: 28px;
-  cursor: pointer;
-  box-shadow: 5px 6px 0 #0D1B2A;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  padding: 30px 26px;
+  box-shadow: 7px 7px 0 rgba(13, 27, 42, 0.92);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-.skill-card:hover {
-  background: #f4f8fd;
-  transform: translate(2px, 3px);
-  box-shadow: 1px 2px 0 #0D1B2A;
-}
-.skill-card:active {
-  transform: translate(5px, 6px);
-  box-shadow: 0 0 0 #0D1B2A;
+.skill-card:nth-child(odd)  { transform: rotate(-0.6deg); }
+.skill-card:nth-child(even) { transform: rotate(0.5deg); }
+
+.skill-card:hover,
+.skill-card:nth-child(odd):hover,
+.skill-card:nth-child(even):hover {
+  transform: translate(-4px, -6px) rotate(0deg);
+  box-shadow: 12px 14px 0 var(--accent-500);
 }
 
 .skill-card-title {
@@ -1687,7 +1687,8 @@ section.deco-active .deco { opacity: 1; }
 }
 
 @media (max-width: 680px) {
-  .skill-cards { grid-template-columns: 1fr; }
+  .skill-cards { grid-template-columns: 1fr; gap: 26px; }
+  .skill-card { box-shadow: 5px 5px 0 rgba(13, 27, 42, 0.92); }
 }
 
 /* ─── Notebook-paper cards (About / Skills) ────────────────── */
@@ -1771,13 +1772,10 @@ section.deco-active .deco { opacity: 1; }
   margin-top: 72px;
 }
 
-/* Cartoon sticker card: ink outline, hard offset shadow, faint grid paper. */
+/* Cartoon sticker card: ink outline, hard offset shadow, flat paper fill. */
 .showcase-card {
   position: relative;
-  background:
-    repeating-linear-gradient(0deg, rgba(79,142,247,.07) 0 1px, transparent 1px 22px),
-    repeating-linear-gradient(90deg, rgba(79,142,247,.07) 0 1px, transparent 1px 22px),
-    #fffdf6;
+  background: #fffdf6;
   border: 2.5px solid var(--navy);
   border-radius: var(--radius-lg);
   padding: 40px 22px 24px;
@@ -1997,3 +1995,125 @@ section.deco-active .deco { opacity: 1; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero-avail-badge { animation: none; }
 }
+
+/* ─── Services ("What I do") ───────────────────────────────── */
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 60px;
+}
+
+.service-card {
+  position: relative;
+  background: #fffdf6;
+  border: 2.5px solid var(--navy);
+  border-radius: var(--radius-lg);
+  padding: 30px 24px 26px;
+  box-shadow: 7px 7px 0 rgba(13, 27, 42, 0.92);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.service-card:nth-child(odd)  { transform: rotate(-0.6deg); }
+.service-card:nth-child(even) { transform: rotate(0.5deg); }
+.service-card:hover,
+.service-card:nth-child(odd):hover,
+.service-card:nth-child(even):hover {
+  transform: translate(-4px, -6px) rotate(0deg);
+  box-shadow: 12px 14px 0 var(--accent-500);
+}
+
+.service-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  font-size: 1.6rem;
+  background: var(--sky);
+  border: 2.5px solid var(--navy);
+  border-radius: var(--radius-full);
+  box-shadow: 3px 3px 0 rgba(13, 27, 42, 0.9);
+}
+
+.service-title {
+  margin: 18px 0 10px;
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.service-blurb {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+.services-note {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+.services-note a {
+  color: var(--accent-600);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent-300);
+}
+.services-note a:hover { color: var(--accent-500); }
+
+@media (max-width: 860px) {
+  .service-cards { grid-template-columns: 1fr; gap: 26px; }
+  .service-card { box-shadow: 5px 5px 0 rgba(13, 27, 42, 0.92); }
+}
+
+/* ─── CV download links (hero + contact) ───────────────────── */
+.hero-cv,
+.contact-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px dashed var(--accent-300);
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+}
+.hero-cv svg,
+.contact-cv svg { width: 16px; height: 16px; }
+
+.hero-cv:hover,
+.contact-cv:hover {
+  color: var(--accent-600);
+  border-bottom-color: var(--accent-500);
+  transform: translateY(-1px);
+}
+
+/* sketched service icons: pen-drawn, no filled badge behind them */
+.service-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  color: var(--navy);
+}
+.service-sketch {
+  width: 58px;
+  height: 58px;
+  overflow: visible;
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.service-card:hover .service-sketch {
+  transform: rotate(0deg) scale(1.04);
+  color: var(--accent-600);
+}
+.service-emoji { font-size: 1.7rem; }
+
+/* gold accent strokes inside the sketched service icons */
+.sketch-spark { stroke: var(--gold); }

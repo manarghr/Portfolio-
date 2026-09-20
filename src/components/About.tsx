@@ -10,7 +10,7 @@ export default function About({ about }: { about: AboutContent }) {
 
       <div className="section-inner">
         <p className="section-eyebrow">About me</p>
-        <h2 className="section-heading">The person behind the code</h2>
+        <h2 className="section-heading">The developer you&apos;d be working with</h2>
 
         {/* plain container to write in, with a small post-it on the top-left */}
         <div className="about-block">

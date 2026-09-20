@@ -206,3 +206,27 @@ export const defaultCertification: CertificationContent = {
   image: '/degree-nit.jpg',
   note: 'Speciality: Autonomous Systems and Ambient and Mobile Software (AI). Click the certificate to open it full size.',
 }
+
+/* ── Services ───────────────────────────────────────────────── */
+export type Service = { title: string; blurb: string; icon: string }
+
+export const defaultServices: Service[] = [
+  {
+    title: 'Websites & landing pages',
+    blurb:
+      "From business websites to focused landing pages, I build responsive experiences tailored to your goals, whether you're launching a product, promoting an event, or showcasing your business.",
+    icon: 'browser',
+  },
+  {
+    title: 'Web platforms & applications',
+    blurb:
+      'Interactive multi-page products with user accounts, dashboards, forms, content management and other functionalities, built to be used, not just viewed.',
+    icon: 'dashboard',
+  },
+  {
+    title: 'Custom web solutions',
+    blurb:
+      'Have something specific in mind? I build custom web experiences around your needs, requirements and ideas, turning your vision into a functional product.',
+    icon: 'toolbox',
+  },
+]

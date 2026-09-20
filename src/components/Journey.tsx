@@ -52,8 +52,8 @@ export default function Journey({ events }: { events: Ev[] }) {
       <Doodle variant="star" float style={{ top: '44%', right: '11%', width: 28 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">Academic Journey</p>
-        <h2 className="section-heading">Education &amp; Experience</h2>
+        <p className="section-eyebrow">Experience</p>
+        <h2 className="section-heading">Where I&apos;ve worked &amp; studied</h2>
 
         <div className="journey reveal">
           {/* noise fields that chew the straight edges off the panel below.
