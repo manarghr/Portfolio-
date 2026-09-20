@@ -1,6 +1,28 @@
 import Doodle from '@/components/Doodle'
 import type { Project } from '@/content/defaults'
 
+/** Empty or a bare "#" means the link was left out, so its button is hidden. */
+function hasLink(url?: string): boolean {
+  const v = url?.trim()
+  return !!v && v !== '#'
+}
+
+/**
+ * Background layers, top first: the project's own image, then a screenshot of its
+ * live link, then a gradient. A missing image file just shows the layer beneath.
+ */
+function shotLayers(p: Project): string {
+  const layers: string[] = []
+  if (p.image?.trim()) layers.push(`url("${p.image.trim()}")`)
+  if (/^https?:\/\//.test(p.live ?? '')) {
+    layers.push(
+      `url("https://api.microlink.io/?url=${encodeURIComponent(p.live)}&screenshot=true&meta=false&embed=screenshot.url")`
+    )
+  }
+  layers.push('linear-gradient(135deg, #1E3A5F, #4F8EF7)')
+  return layers.join(', ')
+}
+
 export default function Projects({ projects }: { projects: Project[] }) {
   return (
     <section className="section projects-section" id="projects">
@@ -24,22 +46,27 @@ export default function Projects({ projects }: { projects: Project[] }) {
               <div
                 className="showcase-shot"
                 style={{
-                  backgroundImage: `url(${p.image}), linear-gradient(135deg, #1E3A5F, #4F8EF7)`,
+                  backgroundImage: shotLayers(p),
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center',
+                  backgroundPosition: 'top center',
                 }}
               />
 
               <p className="showcase-desc">{p.desc}</p>
 
+              {/* Each link only shows when that field holds a real URL. */}
               <div className="showcase-links">
-                <a href={p.live} target="_blank" rel="noopener noreferrer">
-                  Live
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M7 17 17 7M9 7h8v8" />
-                  </svg>
-                </a>
-                <a href={p.code} target="_blank" rel="noopener noreferrer">GitHub</a>
+                {hasLink(p.live) && (
+                  <a href={p.live} target="_blank" rel="noopener noreferrer">
+                    Live
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                )}
+                {hasLink(p.code) && (
+                  <a href={p.code} target="_blank" rel="noopener noreferrer">GitHub</a>
+                )}
               </div>
             </article>
           ))}
