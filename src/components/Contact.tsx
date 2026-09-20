@@ -47,22 +47,22 @@ export default function Contact({ site, headings }: { site: SiteContent; heading
                 <div className="form-row">
                   <div className="field">
                     <label htmlFor="c-name">Name</label>
-                    <input id="c-name" name="name" required />
+                    <input id="c-name" name="name" autoComplete="name" required />
                   </div>
                   <div className="field">
                     <label htmlFor="c-email">Email</label>
-                    <input id="c-email" name="email" type="email" required />
+                    <input id="c-email" name="email" type="email" autoComplete="email" required />
                   </div>
                 </div>
 
                 <div className="field">
                   <label htmlFor="c-subject">Subject</label>
-                  <input id="c-subject" name="subject" />
+                  <input id="c-subject" name="subject" autoComplete="off" />
                 </div>
 
                 <div className="field">
                   <label htmlFor="c-message">Message</label>
-                  <textarea id="c-message" name="message" required />
+                  <textarea id="c-message" name="message" autoComplete="off" required />
                 </div>
 
                 {/* honeypot: hidden from people, catnip for bots */}
