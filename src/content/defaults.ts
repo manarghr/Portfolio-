@@ -95,7 +95,7 @@ export const defaultSkills: SkillGroup[] = [
   { label: 'Frontend', skills: 'HTML & CSS, JavaScript, React, Next.js, TypeScript, Tailwind' },
   { label: 'Backend & Databases', skills: 'Node.js, Python, FastAPI, SQL, REST APIs, MongoDB, Supabase' },
   { label: 'AI', skills: 'Machine Learning, Deep Learning, Computer Vision, Python Libraries' },
-  { label: 'Design', skills: 'Figma, UI / UX' },
+  { label: 'Design', skills: 'Figma' },
 ]
 
 /* ── Journey ────────────────────────────────────────────────── */
