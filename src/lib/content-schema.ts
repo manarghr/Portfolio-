@@ -122,7 +122,7 @@ export const sections: Record<SectionKey, SectionSchema> = {
     itemName: 'project',
     titleField: 'name',
     fields: [
-      { name: 'name', label: 'Name', type: 'text', placeholder: 'Elevate 2.0 Website' },
+      { name: 'name', label: 'Name', type: 'text', placeholder: 'Project name' },
       { name: 'desc', label: 'Description', type: 'textarea', wide: true },
       {
         name: 'color',

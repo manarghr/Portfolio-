@@ -1842,6 +1842,8 @@ section.deco-active .deco { opacity: 1; }
   line-height: 1.6;
   max-width: 62ch;
   flex: 1;
+  /* line breaks typed in the dashboard are kept */
+  white-space: pre-line;
 }
 
 /* links as small outlined stickers, matching the card's ink outline */

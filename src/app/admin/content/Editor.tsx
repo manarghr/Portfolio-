@@ -56,6 +56,21 @@ export default function Editor({
   const [error, setError] = useState('')
 
   const isList = schema.kind === 'list'
+
+  /**
+   * Which panels are open, tracked separately from the row data.
+   *
+   * This used to be derived from whether the title field was filled in, which
+   * closed the panel mid-word as soon as the first letter was typed and took
+   * the cursor with it. Only a click on the summary changes it now.
+   */
+  const [open, setOpen] = useState<boolean[]>(() =>
+    initial.map(r => !isList || !r[schema.titleField])
+  )
+
+  function setOpenAt(index: number, value: boolean) {
+    setOpen(prev => prev.map((o, i) => (i === index ? value : o)))
+  }
   const dirty = JSON.stringify(rows) !== JSON.stringify(initial)
 
   function update(index: number, name: string, value: string) {
@@ -71,16 +86,23 @@ export default function Editor({
       ;[next[index], next[target]] = [next[target], next[index]]
       return next
     })
+    setOpen(prev => {
+      const next = [...prev]
+      ;[next[index], next[target]] = [next[target], next[index]]
+      return next
+    })
     setStatus('idle')
   }
 
   function remove(index: number) {
     setRows(prev => prev.filter((_, i) => i !== index))
+    setOpen(prev => prev.filter((_, i) => i !== index))
     setStatus('idle')
   }
 
   function add() {
     setRows(prev => [...prev, { ...schema.blank }])
+    setOpen(prev => [...prev, true])
     setStatus('idle')
   }
 
@@ -128,7 +150,12 @@ export default function Editor({
 
       <div className="ed-rows">
         {rows.map((row, i) => (
-          <details key={i} className="ed-row" open={!isList || !row[schema.titleField]}>
+          <details
+            key={i}
+            className="ed-row"
+            open={open[i] ?? true}
+            onToggle={e => setOpenAt(i, (e.currentTarget as HTMLDetailsElement).open)}
+          >
             <summary>
               <span className="ed-row-title">
                 {row[schema.titleField] || `Untitled ${schema.itemName}`}
