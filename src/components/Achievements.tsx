@@ -1,5 +1,5 @@
 import Doodle from '@/components/Doodle'
-import type { CertificationContent } from '@/content/defaults'
+import type { CertificationContent, HeadingsContent } from '@/content/defaults'
 
 const CapIcon = (
   <svg viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -8,7 +8,7 @@ const CapIcon = (
   </svg>
 )
 
-export default function Achievements({ cert }: { cert: CertificationContent }) {
+export default function Achievements({ cert, headings }: { cert: CertificationContent; headings: HeadingsContent }) {
   return (
     <section className="section achievements-section" id="achievements">
       {/* decorative doodles */}
@@ -17,8 +17,8 @@ export default function Achievements({ cert }: { cert: CertificationContent }) {
       <Doodle variant="star" float style={{ bottom: '16%', left: '11%', width: 30 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">Certifications</p>
-        <h2 className="section-heading">Degrees &amp; certifications I&apos;ve earned</h2>
+        <p className="section-eyebrow">{headings.certEyebrow}</p>
+        <h2 className="section-heading">{headings.certHeading}</h2>
 
         <div className="certificate reveal">
           <a

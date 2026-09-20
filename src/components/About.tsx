@@ -1,7 +1,7 @@
 import Doodle from '@/components/Doodle'
-import type { AboutContent } from '@/content/defaults'
+import type { AboutContent, HeadingsContent } from '@/content/defaults'
 
-export default function About({ about }: { about: AboutContent }) {
+export default function About({ about, headings }: { about: AboutContent; headings: HeadingsContent }) {
   return (
     <section className="section about-section" id="about">
       {/* decorative doodles */}
@@ -9,8 +9,8 @@ export default function About({ about }: { about: AboutContent }) {
       <Doodle variant="laptop" float style={{ top: '44%', left: '9%', width: 80 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">About me</p>
-        <h2 className="section-heading">The developer you&apos;d be working with</h2>
+        <p className="section-eyebrow">{headings.aboutEyebrow}</p>
+        <h2 className="section-heading">{headings.aboutHeading}</h2>
 
         {/* plain container to write in, with a small post-it on the top-left */}
         <div className="about-block">

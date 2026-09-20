@@ -1,8 +1,8 @@
 import Doodle from '@/components/Doodle'
 import ServiceIcon from '@/components/ServiceIcon'
-import type { Service } from '@/content/defaults'
+import type { HeadingsContent, Service } from '@/content/defaults'
 
-export default function Services({ services }: { services: Service[] }) {
+export default function Services({ services, headings }: { services: Service[]; headings: HeadingsContent }) {
   return (
     <section className="section services-section" id="services">
       {/* decorative doodles */}
@@ -10,8 +10,8 @@ export default function Services({ services }: { services: Service[] }) {
       <Doodle variant="star" float style={{ bottom: '20%', right: '9%', width: 30 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">What I do</p>
-        <h2 className="section-heading">Need it built? Here&apos;s how I help</h2>
+        <p className="section-eyebrow">{headings.servicesEyebrow}</p>
+        <h2 className="section-heading">{headings.servicesHeading}</h2>
 
         <div className="service-cards">
           {services.map(s => (

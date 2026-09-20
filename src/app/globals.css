@@ -386,6 +386,8 @@ section.deco-active .deco { opacity: 1; }
   line-height: 1.65;
   max-width: 480px;
   margin-bottom: 34px;
+  /* line breaks typed in the dashboard are kept */
+  white-space: pre-line;
 }
 
 .hero-cta {

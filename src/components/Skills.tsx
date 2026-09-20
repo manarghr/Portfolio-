@@ -1,7 +1,7 @@
 import Doodle from '@/components/Doodle'
-import type { SkillGroup } from '@/content/defaults'
+import type { HeadingsContent, SkillGroup } from '@/content/defaults'
 
-export default function Skills({ groups }: { groups: SkillGroup[] }) {
+export default function Skills({ groups, headings }: { groups: SkillGroup[]; headings: HeadingsContent }) {
   return (
     <section className="section" id="skills">
       {/* decorative doodles */}
@@ -9,8 +9,8 @@ export default function Skills({ groups }: { groups: SkillGroup[] }) {
       <Doodle variant="spiral" spin style={{ top: '54%', right: '9%', width: 96 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">Skills</p>
-        <h2 className="section-heading">Tools and technologies I use most often</h2>
+        <p className="section-eyebrow">{headings.skillsEyebrow}</p>
+        <h2 className="section-heading">{headings.skillsHeading}</h2>
 
         <div className="skill-cards">
           {groups.map(g => (

@@ -230,3 +230,61 @@ export const defaultServices: Service[] = [
     icon: 'toolbox',
   },
 ]
+
+/* ── Site-wide details (contact, links, footer) ─────────────── */
+export type SiteContent = {
+  email: string
+  github: string
+  linkedin: string
+  cv: string
+  contactSub: string
+  contactNote: string
+  footerName: string
+  footerTagline: string
+}
+
+export const defaultSite: SiteContent = {
+  email: 'gheribmanar2@gmail.com',
+  github: 'https://github.com/manarghr',
+  linkedin: 'https://www.linkedin.com/in/manar-gherib-68161b301/',
+  cv: '/cv.pdf',
+  contactSub: 'Have a project or role in mind? Drop me a line. I usually respond within 24 h.',
+  contactNote: 'Happy to talk about roles, internships or anything you are building.',
+  footerName: 'Manar Gherib',
+  footerTagline: 'CS graduate building fast, accessible web products end to end.',
+}
+
+/* ── Section titles ─────────────────────────────────────────── */
+export type HeadingsContent = {
+  aboutEyebrow: string
+  aboutHeading: string
+  skillsEyebrow: string
+  skillsHeading: string
+  servicesEyebrow: string
+  servicesHeading: string
+  projectsEyebrow: string
+  projectsHeading: string
+  journeyEyebrow: string
+  journeyHeading: string
+  certEyebrow: string
+  certHeading: string
+  contactEyebrow: string
+  contactHeading: string
+}
+
+export const defaultHeadings: HeadingsContent = {
+  aboutEyebrow: 'About me',
+  aboutHeading: 'The person behind the code',
+  skillsEyebrow: 'Skills',
+  skillsHeading: 'Tools and technologies I use most often',
+  servicesEyebrow: 'What I do',
+  servicesHeading: "Need it built? Here's how I help",
+  projectsEyebrow: 'Projects',
+  projectsHeading: "Things I've built & contributed to",
+  journeyEyebrow: 'Experience',
+  journeyHeading: "Where I've worked & studied",
+  certEyebrow: 'Certifications',
+  certHeading: "Degrees & certifications I've earned",
+  contactEyebrow: 'Contact',
+  contactHeading: "Let's build something together",
+}

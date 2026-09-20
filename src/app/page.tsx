@@ -13,7 +13,9 @@ import { getSection, getSingle, toJourneyEvents } from '@/lib/content'
 import type {
   AboutContent,
   CertificationContent,
+  HeadingsContent,
   HeroContent,
+  SiteContent,
   JourneyRow,
   Project,
   Service,
@@ -21,7 +23,7 @@ import type {
 } from '@/content/defaults'
 
 export default async function Home() {
-  const [hero, about, skills, services, projects, journey, cert] = await Promise.all([
+  const [hero, about, skills, services, projects, journey, cert, site, headings] = await Promise.all([
     getSingle<HeroContent>('hero'),
     getSingle<AboutContent>('about'),
     getSection<SkillGroup[]>('skills'),
@@ -29,6 +31,8 @@ export default async function Home() {
     getSection<Project[]>('projects'),
     getSection<JourneyRow[]>('journey'),
     getSingle<CertificationContent>('certification'),
+    getSingle<SiteContent>('site'),
+    getSingle<HeadingsContent>('headings'),
   ])
 
   return (
@@ -36,15 +40,15 @@ export default async function Home() {
       <Navbar />
       <main>
         <Hero hero={hero} />
-        <About about={about} />
-        <Skills groups={skills} />
-        <Services services={services} />
-        <Projects projects={projects} />
-        <Journey events={toJourneyEvents(journey)} />
-        <Achievements cert={cert} />
-        <Contact />
+        <About about={about} headings={headings} />
+        <Skills groups={skills} headings={headings} />
+        <Services services={services} headings={headings} />
+        <Projects projects={projects} headings={headings} />
+        <Journey events={toJourneyEvents(journey)} headings={headings} />
+        <Achievements cert={cert} headings={headings} />
+        <Contact site={site} headings={headings} />
       </main>
-      <Footer />
+      <Footer site={site} />
       <ScrollReveal />
     </>
   )

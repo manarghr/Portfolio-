@@ -14,8 +14,10 @@ import {
   defaultCertification,
   defaultHero,
   defaultJourney,
+  defaultHeadings,
   defaultProjects,
   defaultServices,
+  defaultSite,
   defaultSkills,
   type AboutContent,
   type CertificationContent,
@@ -33,6 +35,8 @@ export type SectionKey =
   | 'journey'
   | 'certification'
   | 'services'
+  | 'site'
+  | 'headings'
 
 const fallbacks: Record<SectionKey, unknown> = {
   hero: [defaultHero],
@@ -42,6 +46,8 @@ const fallbacks: Record<SectionKey, unknown> = {
   journey: defaultJourney,
   certification: [defaultCertification],
   services: defaultServices,
+  site: [defaultSite],
+  headings: [defaultHeadings],
 }
 
 function config(): { url: string; key: string } | null {

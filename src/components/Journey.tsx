@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Doodle from '@/components/Doodle'
 import type { JourneyEvent } from '@/lib/content'
+import type { HeadingsContent } from '@/content/defaults'
 
 type Ev = JourneyEvent
 
@@ -40,7 +41,7 @@ function whenLabel(e: Ev) {
   return `${from} to ${months[e.to[1] - 1]} ${e.to[0]}`
 }
 
-export default function Journey({ events }: { events: Ev[] }) {
+export default function Journey({ events, headings }: { events: Ev[]; headings: HeadingsContent }) {
   const [activeId, setActiveId] = useState<string | null>(null)
   const active = events.find(e => e.id === activeId) ?? events[events.length - 1]
 
@@ -52,8 +53,8 @@ export default function Journey({ events }: { events: Ev[] }) {
       <Doodle variant="star" float style={{ top: '44%', right: '11%', width: 28 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">Experience</p>
-        <h2 className="section-heading">Where I&apos;ve worked &amp; studied</h2>
+        <p className="section-eyebrow">{headings.journeyEyebrow}</p>
+        <h2 className="section-heading">{headings.journeyHeading}</h2>
 
         <div className="journey reveal">
           {/* noise fields that chew the straight edges off the panel below.

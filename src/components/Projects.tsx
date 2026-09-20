@@ -1,5 +1,5 @@
 import Doodle from '@/components/Doodle'
-import type { Project } from '@/content/defaults'
+import type { HeadingsContent, Project } from '@/content/defaults'
 
 /** Empty or a bare "#" means the link was left out, so its button is hidden. */
 function hasLink(url?: string): boolean {
@@ -23,7 +23,7 @@ function shotLayers(p: Project): string {
   return layers.join(', ')
 }
 
-export default function Projects({ projects }: { projects: Project[] }) {
+export default function Projects({ projects, headings }: { projects: Project[]; headings: HeadingsContent }) {
   return (
     <section className="section projects-section" id="projects">
       {/* decorative doodles */}
@@ -32,8 +32,8 @@ export default function Projects({ projects }: { projects: Project[] }) {
       <Doodle variant="star" float style={{ top: '16%', right: '10%', width: 26 }} />
 
       <div className="section-inner">
-        <p className="section-eyebrow">Projects</p>
-        <h2 className="section-heading">Things I&apos;ve built &amp; contributed to</h2>
+        <p className="section-eyebrow">{headings.projectsEyebrow}</p>
+        <h2 className="section-heading">{headings.projectsHeading}</h2>
 
         <div className="showcase-grid">
           {projects.map((p, i) => (

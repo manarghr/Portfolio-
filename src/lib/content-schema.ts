@@ -254,6 +254,72 @@ export const sections: Record<SectionKey, SectionSchema> = {
     ],
     blank: { title: '', issuer: '', year: '', image: '', note: '' },
   },
+
+  site: {
+    key: 'site',
+    title: 'Contact & links',
+    blurb: 'Your email, social links, CV file and the footer text. Used everywhere they appear.',
+    kind: 'single',
+    itemName: 'details',
+    titleField: 'email',
+    fields: [
+      {
+        name: 'email',
+        label: 'Email address',
+        type: 'text',
+        placeholder: 'you@example.com',
+        help: 'Shown in Contact and used by every mail link on the site.',
+      },
+      { name: 'github', label: 'GitHub link', type: 'url', placeholder: 'https://github.com/…' },
+      { name: 'linkedin', label: 'LinkedIn link', type: 'url', placeholder: 'https://www.linkedin.com/in/…' },
+      {
+        name: 'cv',
+        label: 'CV file',
+        type: 'text',
+        placeholder: '/cv.pdf',
+        help: 'Put the PDF in public/ and write its path here. Leave empty to hide the CV links.',
+      },
+      { name: 'contactSub', label: 'Contact intro line', type: 'textarea', wide: true },
+      { name: 'contactNote', label: 'Note under your email', type: 'textarea', wide: true },
+      { name: 'footerName', label: 'Footer name', type: 'text', placeholder: 'Manar Gherib' },
+      { name: 'footerTagline', label: 'Footer tagline', type: 'textarea', wide: true },
+    ],
+    blank: {
+      email: '', github: '', linkedin: '', cv: '/cv.pdf',
+      contactSub: '', contactNote: '', footerName: '', footerTagline: '',
+    },
+  },
+
+  headings: {
+    key: 'headings',
+    title: 'Section titles',
+    blurb: 'The small label and the big title at the top of every section.',
+    kind: 'single',
+    itemName: 'titles',
+    titleField: 'aboutHeading',
+    fields: [
+      { name: 'aboutEyebrow', label: 'About: label', type: 'text' },
+      { name: 'aboutHeading', label: 'About: title', type: 'text', wide: true },
+      { name: 'skillsEyebrow', label: 'Skills: label', type: 'text' },
+      { name: 'skillsHeading', label: 'Skills: title', type: 'text', wide: true },
+      { name: 'servicesEyebrow', label: 'What I do: label', type: 'text' },
+      { name: 'servicesHeading', label: 'What I do: title', type: 'text', wide: true },
+      { name: 'projectsEyebrow', label: 'Projects: label', type: 'text' },
+      { name: 'projectsHeading', label: 'Projects: title', type: 'text', wide: true },
+      { name: 'journeyEyebrow', label: 'Experience: label', type: 'text' },
+      { name: 'journeyHeading', label: 'Experience: title', type: 'text', wide: true },
+      { name: 'certEyebrow', label: 'Certifications: label', type: 'text' },
+      { name: 'certHeading', label: 'Certifications: title', type: 'text', wide: true },
+      { name: 'contactEyebrow', label: 'Contact: label', type: 'text' },
+      { name: 'contactHeading', label: 'Contact: title', type: 'text', wide: true },
+    ],
+    blank: {
+      aboutEyebrow: '', aboutHeading: '', skillsEyebrow: '', skillsHeading: '',
+      servicesEyebrow: '', servicesHeading: '', projectsEyebrow: '', projectsHeading: '',
+      journeyEyebrow: '', journeyHeading: '', certEyebrow: '', certHeading: '',
+      contactEyebrow: '', contactHeading: '',
+    },
+  },
 }
 
 export const sectionList = Object.values(sections)
