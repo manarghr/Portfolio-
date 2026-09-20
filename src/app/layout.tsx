@@ -24,8 +24,8 @@ const caveat = Caveat({
 })
 
 export const metadata: Metadata = {
-  title: 'Manar Gherib | Web Developer, Next.js sites & platforms',
-  description: 'Freelance web developer building fast, responsive sites and platforms with Next.js: event pages, landing pages and web apps. Remote, working with clients in Algeria and abroad.',
+  title: 'Manar Gherib | Web Developer',
+  description: 'Portfolio of Manar Gherib, Computer Science graduate and web developer. Websites and web platforms, plus skills, experience and contact.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
