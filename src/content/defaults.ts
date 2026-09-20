@@ -234,6 +234,7 @@ export const defaultServices: Service[] = [
 /* ── Site-wide details (contact, links, footer) ─────────────── */
 export type SiteContent = {
   email: string
+  whatsapp: string
   github: string
   linkedin: string
   cv: string
@@ -245,9 +246,10 @@ export type SiteContent = {
 
 export const defaultSite: SiteContent = {
   email: 'gheribmanar2@gmail.com',
+  whatsapp: '',
   github: 'https://github.com/manarghr',
   linkedin: 'https://www.linkedin.com/in/manar-gherib-68161b301/',
-  cv: '/cv.pdf',
+  cv: '/ManarGherib_CV.pdf',
   contactSub: 'Have a project or role in mind? Drop me a line. I usually respond within 24 h.',
   contactNote: 'Happy to talk about roles, internships or anything you are building.',
   footerName: 'Manar Gherib',

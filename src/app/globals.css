@@ -11,7 +11,7 @@
   --accent-500: #4F8EF7;   /* electric blue (primary) */
   --accent-600: #3a6fc4;   /* deeper blue (readable text/hover) */
   --gold:       #C9A84C;   /* muted gold (stars, decorative) */
-  --eyebrow:    #3d6984;   /* muted steel blue (section eyebrows) */
+  --eyebrow:    #3a6fc4;   /* section eyebrows: the brand blue, not a third one */
   --sky:        #cfe3fb;   /* soft blue fill (sticker + contact) */
 
   /* Surfaces */
@@ -110,8 +110,9 @@ body {
 .section-eyebrow::before {
   content: "";
   width: 36px;
-  height: 2px;
-  background: var(--eyebrow);
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gold);
 }
 
 .section-heading {
@@ -237,20 +238,25 @@ section.deco-active .deco { opacity: 1; }
 
 /* sticker-style CTA to match the hero buttons */
 .navbar-cta {
-  background: #cfe3fb;
-  color: #0D1B2A !important;
+  background: #c3dcff;
+  color: var(--navy) !important;
   font-weight: 700 !important;
-  border: 2px solid #0D1B2A;
-  box-shadow: 3px 3px 0 #0D1B2A;
+  border: 2.5px solid var(--navy);
+  box-shadow: 3px 3px 0 rgba(13, 27, 42, 0.92);
   padding: 0.42rem 1.05rem !important;
   transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
 }
 .navbar-cta::after { display: none !important; }
 .navbar-cta:hover {
-  background: #bcd8fb;
-  color: #0D1B2A !important;
-  transform: translate(1.5px, 1.5px);
-  box-shadow: 1px 1px 0 #0D1B2A;
+  background: #aecdfb;
+  color: var(--navy) !important;
+  transform: translate(2px, 2px) scale(0.985);
+  box-shadow: 1px 1px 0 rgba(13, 27, 42, 0.92);
+}
+.navbar-cta:active {
+  background: #9dc1f8;
+  transform: translate(3px, 3px) scale(0.97);
+  box-shadow: 0 0 0 rgba(13, 27, 42, 0.92);
 }
 
 .navbar-burger {
@@ -449,25 +455,29 @@ section.deco-active .deco { opacity: 1; }
 .btn-secondary:hover { border-color: var(--accent-500); color: var(--accent-600); }
 
 /* Sticker / pop buttons: light blue fill, dark outline, hard offset shadow */
+/* Same ink outline and offset as the cards, so buttons belong to the same set.
+   Hover lifts like a card; the press-down is kept for the actual click. */
 .btn-pop {
-  background: #cfe3fb;
-  color: #0D1B2A;
-  border: 3px solid #0D1B2A;
+  background: #c3dcff;
+  color: var(--navy);
+  border: 2.5px solid var(--navy);
   border-radius: var(--radius-full);
   font-weight: 700;
   font-size: 1.24rem;
   padding: 1.05rem 2.2rem;
-  box-shadow: 5px 6px 0 #0D1B2A;
+  box-shadow: 5px 6px 0 rgba(13, 27, 42, 0.92);
   transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
 }
+/* no lift here: the button squashes into its shadow, as if pressed */
 .btn-pop:hover {
-  background: #bcd8fb;
-  transform: translate(2px, 3px);
-  box-shadow: 1px 2px 0 #0D1B2A;
+  background: #aecdfb;
+  transform: translate(3px, 4px) scale(0.985);
+  box-shadow: 1px 2px 0 rgba(13, 27, 42, 0.92);
 }
 .btn-pop:active {
-  transform: translate(4px, 5px);
-  box-shadow: 0 0 0 #0D1B2A;
+  background: #9dc1f8;
+  transform: translate(5px, 6px) scale(0.97);
+  box-shadow: 0 0 0 rgba(13, 27, 42, 0.92);
 }
 
 /* gold star tucked on the top-left corner of a button */
@@ -555,8 +565,8 @@ section.deco-active .deco { opacity: 1; }
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #3d6984;
-  box-shadow: 0 0 10px #3d6984;
+  background: var(--accent-600);
+  box-shadow: 0 0 10px var(--accent-600);
 }
 .hero-avail-badge .star { color: var(--gold); }
 
@@ -1089,7 +1099,7 @@ section.deco-active .deco { opacity: 1; }
   padding-left: 11px;
   font-size: 1rem;
   font-weight: 700;
-  color: #3d6984;
+  color: var(--accent-600);
 }
 
 /* year gridlines + a dashed marker on today */
@@ -1315,8 +1325,8 @@ section.deco-active .deco { opacity: 1; }
 
 .contact-card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 5px solid var(--sky);
+  border: 2px solid var(--navy);
+  border-left: 5px solid var(--navy);
   border-radius: var(--radius-lg);
   padding: 32px 32px 30px;
   box-shadow: var(--shadow);
@@ -1336,12 +1346,13 @@ section.deco-active .deco { opacity: 1; }
 /* the column beside the form */
 .contact-aside {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 5px solid var(--gold);
+  border: 2px solid var(--navy);
+  border-left: 5px solid var(--navy);
   border-radius: var(--radius-lg);
   padding: 32px 32px 30px;
   box-shadow: var(--shadow);
 }
+
 
 .contact-mail {
   display: inline-block;
@@ -1390,7 +1401,7 @@ section.deco-active .deco { opacity: 1; }
   font-size: 0.93rem;
   color: var(--text);
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--navy);
   border-radius: var(--radius-sm);
   padding: 0.7rem 0.9rem;
   outline: none;
@@ -1466,7 +1477,7 @@ section.deco-active .deco { opacity: 1; }
   height: 46px;
   border-radius: 50%;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 2px solid var(--navy);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1652,17 +1663,11 @@ section.deco-active .deco { opacity: 1; }
   border-radius: var(--radius-lg);
   padding: 30px 26px;
   box-shadow: 7px 7px 0 rgba(13, 27, 42, 0.92);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .skill-card:nth-child(odd)  { transform: rotate(-0.6deg); }
 .skill-card:nth-child(even) { transform: rotate(0.5deg); }
 
-.skill-card:hover,
-.skill-card:nth-child(odd):hover,
-.skill-card:nth-child(even):hover {
-  transform: translate(-4px, -6px) rotate(0deg);
-  box-shadow: 12px 14px 0 var(--accent-500);
-}
+
 
 .skill-card-title {
   font-family: var(--font-hand), cursive;
@@ -2099,16 +2104,16 @@ section.deco-active .deco { opacity: 1; }
 .service-icon {
   display: inline-grid;
   place-items: center;
-  width: 64px;
-  height: 64px;
+  width: 86px;
+  height: 86px;
   background: none;
   border: 0;
   box-shadow: none;
   color: var(--navy);
 }
 .service-sketch {
-  width: 58px;
-  height: 58px;
+  width: 80px;
+  height: 80px;
   overflow: visible;
   transform: rotate(-2deg);
   transition: transform 0.2s ease, color 0.2s ease;
@@ -2121,3 +2126,30 @@ section.deco-active .deco { opacity: 1; }
 
 /* gold accent strokes inside the sketched service icons */
 .sketch-spark { stroke: var(--gold); }
+
+/* WhatsApp link under the contact email */
+.contact-wa {
+  /* flex, not inline-flex: this has to start its own line under the email */
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 8px 15px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  text-decoration: none;
+  background: #ddf5e3;
+  border: 2px solid var(--navy);
+  border-radius: var(--radius-full);
+  box-shadow: 3px 3px 0 rgba(13, 27, 42, 0.9);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.contact-wa svg { width: 17px; height: 17px; color: #128C7E; }
+.contact-wa:hover { transform: translate(-1px, -2px); box-shadow: 5px 6px 0 #128C7E; }
+.contact-wa:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgba(13,27,42,.9); }
+
+/* hero greeting and the coloured half of the headline share the brand blue */
+.hero-greeting { color: var(--eyebrow); }
+.hero-accent { color: var(--eyebrow); }

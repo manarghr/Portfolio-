@@ -24,7 +24,7 @@ export default function Services({ services, headings }: { services: Service[]; 
         </div>
 
         <p className="services-note">
-          Remote, working with clients in Algeria and abroad · EN · FR · AR ·{' '}
+          Available for remote work, in Algeria and abroad · EN · FR · AR ·{' '}
           <a href="#contact">Tell me what you need →</a>
         </p>
       </div>

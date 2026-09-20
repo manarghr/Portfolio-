@@ -4,6 +4,13 @@ import Doodle from '@/components/Doodle'
 import { sendMessage, type ContactState } from '@/app/contact-action'
 import type { HeadingsContent, SiteContent } from '@/content/defaults'
 
+/** A link typed as "www.linkedin.com/..." must not resolve as a path on this site. */
+function externalUrl(url: string): string {
+  const v = url?.trim() ?? ''
+  if (!v) return ''
+  return /^https?:\/\//i.test(v) ? v : `https://${v}`
+}
+
 export default function Contact({ site, headings }: { site: SiteContent; headings: HeadingsContent }) {
   const [state, formAction, pending] = useActionState<ContactState, FormData>(sendMessage, null)
   const sent = state?.ok === true
@@ -83,14 +90,28 @@ export default function Contact({ site, headings }: { site: SiteContent; heading
             <a className="contact-mail" href={`mailto:${site.email}`}>
               {site.email}
             </a>
+            {/* wa.me wants digits only, so anything typed around them is stripped */}
+            {site.whatsapp?.replace(/\D/g, '') && (
+              <a
+                className="contact-wa"
+                href={`https://wa.me/${site.whatsapp.replace(/\D/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12.04 2A9.93 9.93 0 0 0 2.1 11.94a9.83 9.83 0 0 0 1.36 5L2 22l5.2-1.4a9.94 9.94 0 0 0 4.84 1.24h.01a9.93 9.93 0 0 0 9.94-9.93A9.93 9.93 0 0 0 12.04 2Zm0 18.13h-.01a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.1.83.83-3.02-.2-.31a8.24 8.24 0 1 1 15.28-4.36 8.25 8.25 0 0 1-8.3 8.19Zm4.53-6.17c-.25-.13-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.63.8-.78.96-.14.17-.28.19-.53.06a6.74 6.74 0 0 1-3.37-2.95c-.25-.44.25-.4.72-1.35.08-.17.04-.31-.02-.44-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3c-.22.25-.85.84-.85 2.03 0 1.2.87 2.35.99 2.51.12.17 1.71 2.62 4.15 3.67 1.54.67 2.15.72 2.92.61.47-.07 1.47-.6 1.67-1.19.21-.58.21-1.08.15-1.18-.06-.11-.23-.18-.48-.3Z" />
+                </svg>
+                WhatsApp
+              </a>
+            )}
             <p className="contact-aside-note">{site.contactNote}</p>
             <div className="contact-socials">
-            <a href={site.github} target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="GitHub">
+            <a href={externalUrl(site.github)} target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="GitHub">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
               </svg>
             </a>
-            <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="LinkedIn">
+            <a href={externalUrl(site.linkedin)} target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.5 8h4V24h-4V8Zm7 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.37-3.9-2.38 0-2.74 1.85-2.74 3.77V24h-4V8Z" />
               </svg>

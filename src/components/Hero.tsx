@@ -1,8 +1,8 @@
 import Doodle from '@/components/Doodle'
 import Typewriter from '@/components/Typewriter'
-import type { HeroContent } from '@/content/defaults'
+import type { HeroContent, SiteContent } from '@/content/defaults'
 
-export default function Hero({ hero }: { hero: HeroContent }) {
+export default function Hero({ hero, site }: { hero: HeroContent; site: SiteContent }) {
   return (
     <section className="hero" id="hero">
       {/* Decorative doodles, kept out at the corners away from the content */}
@@ -11,14 +11,14 @@ export default function Hero({ hero }: { hero: HeroContent }) {
       <div className="hero-inner">
         {/* Text side */}
         <div>
-          <p className="hero-greeting" style={{ color: '#3d6984' }}>
+          <p className="hero-greeting">
             <Typewriter text={hero.greeting} />
           </p>
 
           <h1>
             {hero.headline}
             <br />
-            &amp; <span style={{ color: '#3d6984' }}>{hero.headlineAccent}</span>
+            &amp; <span className="hero-accent">{hero.headlineAccent}</span>
           </h1>
 
           <p className="hero-lead">{hero.lead}</p>
@@ -37,13 +37,15 @@ export default function Hero({ hero }: { hero: HeroContent }) {
             <a href="#contact" className="btn btn-pop">Get in touch</a>
           </div>
 
-          {/* quieter third action: the CV lives in public/cv.pdf */}
-          <a className="hero-cv" href="/cv.pdf" download>
+          {/* quieter third action: the CV file is set in the dashboard */}
+          {site.cv?.trim() && (
+          <a className="hero-cv" href={site.cv} download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
               <path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16" />
             </svg>
             Download my CV
           </a>
+          )}
         </div>
 
         {/* Photo side */}

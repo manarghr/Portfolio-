@@ -39,7 +39,7 @@ export default async function Home() {
     <>
       <Navbar />
       <main>
-        <Hero hero={hero} />
+        <Hero hero={hero} site={site} />
         <About about={about} headings={headings} />
         <Skills groups={skills} headings={headings} />
         <Services services={services} headings={headings} />
