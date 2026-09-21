@@ -317,7 +317,8 @@ section.deco-active .deco { opacity: 1; }
   min-height: calc(100vh - 90px);
   display: flex;
   align-items: center;
-  padding: 75px 28px 70px;
+  /* top padding clears the fixed navbar and keeps breathing room at every width */
+  padding: clamp(110px, 14vh, 150px) 28px 70px;
   max-width: 1280px;
   margin: 0 auto;
   position: relative;
@@ -2208,4 +2209,43 @@ section.deco-active .deco { opacity: 1; }
   .showcase-links a { padding: 6px 11px; font-size: 0.82rem; }
   .contact-card,
   .contact-aside { padding: 20px 18px; }
+}
+
+/* ─── Phone refinements ────────────────────────────────────── */
+@media (max-width: 760px) {
+  /* the navbar is shorter here, but the greeting still needs air under it */
+  .hero { padding-top: clamp(104px, 16vh, 132px); padding-bottom: 56px; }
+}
+
+@media (max-width: 560px) {
+  /* service cards read as cards, not full-width bands */
+  .service-cards {
+    justify-items: center;
+  }
+  .service-card {
+    width: 100%;
+    max-width: 330px;
+    padding: 28px 24px 26px;
+  }
+
+  /* the About block was a tall wall of large text on a narrow screen */
+  .about-block {
+    padding: 78px 22px 26px;
+    margin-top: 44px;
+  }
+  .about-block-body {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    padding-left: 0;
+    padding-top: 0;
+  }
+  .about-block-body p {
+    padding-left: 16px;
+    margin-bottom: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero { padding-left: 18px; padding-right: 18px; }
+  .about-block-body { font-size: 1rem; }
 }
